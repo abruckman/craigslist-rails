@@ -9,8 +9,11 @@ class PostsController < ApplicationController
     @post = @category.posts.create(post_params)
     @post.secret_key = rand(1000..9999)
 
+    p @post
+
     if @post.save
-      redirect_to @post
+      flash.notice = "your secret key is #{@post.secret_key} . You will need this number to edit or delete the post"
+      redirect_to category_post_path(@category, @post)
     else
       render 'new'
     end
@@ -18,7 +21,8 @@ class PostsController < ApplicationController
   end
 
   def show
-    @post = Post.find(params[:post_id])
+    p flash.notice
+    @post = Post.find(params[:id])
     @category = @post.category
   end
 
