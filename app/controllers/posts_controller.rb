@@ -31,9 +31,25 @@ class PostsController < ApplicationController
     redirect_to @category
   end
 
+  def edit
+    @post = Post.find(params[:id])
+    @category = @post.category
+  end
+
+  def update
+    @post = Post.find(params[:id])
+    @category = @post.category
+
+    if @post.secret_key == post_params[:secret_key] && @post.update(post_params)
+      redirect_to category_post_path(@category, @post)
+    else
+      render 'edit'
+    end
+  end
+
   private
     def post_params
-      params.require(:post).permit(:title, :price, :email, :body, :location)
+      params.require(:post).permit(:title, :price, :email, :body, :location, :secret_key)
     end
 
 end

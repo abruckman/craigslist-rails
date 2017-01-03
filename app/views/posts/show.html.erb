@@ -1,18 +1,11 @@
 <h1><%= @post.title %> - <%=@post.price %></h1>
-<p>
-<%= @post.body %>
-</p>
-<p>
-  <%= @post.location %>
-</p>
+  <p>
+    <%= @post.body %>
+  </p>
+  <p>
+    <%= @post.location %>
+  </p>
 
-<%= link_to "back to #{@category.name}", category_path(@category) %>
+  <%= link_to "back to #{@category.name}", category_path(@category) %>
 
-<% form_tag submission_path do %>
-  <%= text_field_tag(
-      :search,
-      params[:search],
-      placeholder: "Search",
-      class: "form-control"
-  ) %>
-<% end %>
+  <%= link_to 'edit or delete', edit_category_post_path(@category, @post) %>
